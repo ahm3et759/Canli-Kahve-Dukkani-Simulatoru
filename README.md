@@ -1,17 +1,18 @@
-
 ---
 
-# ☕ Canlı Kahve Dükkanı Simülatörü
+# ☕ Gelişmiş Çok Şubeli Kahve Dükkanı Simülatörü
 
-Bu proje, bir kahve dükkanındaki müşteri akışını, barista yoğunluğunu ve bekleme sürelerini analiz etmek için geliştirilmiş olay tabanlı (discrete-event) bir simülasyon aracıdır. Arka planda `SimPy` kullanılarak işletilen matematiksel model, `Streamlit` ve `Plotly` ile geliştirilen modern bir web paneli aracılığıyla görselleştirilmektedir.
+Bu proje, bir kahve zincirindeki şubelerin performansını, müşteri akışını, barista yoğunluğunu ve bekleme sürelerini analiz etmek için geliştirilmiş olay tabanlı (discrete-event) bir simülasyon aracıdır. Arka planda `SimPy` kullanılarak işletilen matematiksel model, `Streamlit` ve `Plotly` ile geliştirilen modern bir web paneli aracılığıyla görselleştirilmektedir.
 
-## ✨ Temel Özellikler
+## ✨ Temel ve Yeni Özellikler
 
-* **Olay Tabanlı Simülasyon:** Müşteri gelişleri ve kahve yapım süreleri istatistiksel dağılımlara (üstel ve tekdüze) dayalı olarak modellenmiştir.
+* **Çoklu Şube Desteği (YENİ):** Aynı anda birden fazla şubeyi (Kadıköy, Beşiktaş vb.) simüle edebilir ve sonuçları birbiriyle karşılaştırabilirsiniz.
+* **Dinamik Şube Ekleme (YENİ):** Arayüz üzerinden dilediğiniz isimde yeni bir şube yaratıp anında simülasyona dahil edebilirsiniz.
+* **Şubeye Özel Ayarlar (YENİ):** Her şube için bağımsız barista sayısı ve müşteri geliş aralığı tanımlayabilirsiniz (Örn: Kadıköy'de 4 barista varken Beşiktaş'ta 2 barista olması).
+* **Farklı Kahve Türleri (YENİ):** Müşteriler; Filtre Kahve (~1 dk), Latte (~3 dk) veya Frappuccino (~5 dk) sipariş edebilir. Her siparişin hazırlık süresi türüne göre dinamik olarak hesaplanır.
+* **VIP / Online Sipariş Önceliği (YENİ):** Öncelikli kuyruk mantığı (`PriorityResource`) sayesinde, VIP veya online sipariş veren müşteriler (🚀) sırayı atlayarak beklemeden hizmet alırlar.
 * **Canlı Veri Akışı:** Simülasyon sonuçları, animasyonlu bir akış ile saniye saniye ekrana yansıtılarak "canlı" bir izleme deneyimi sunar.
-* **İnteraktif Web Paneli:** Kod yazmaya gerek kalmadan barista sayısı, müşteri geliş hızı ve simülasyon süresi gibi parametreleri arayüz üzerinden değiştirebilme imkanı sağlar.
-* **Detaylı Raporlama:** Kuyruk uzunlukları, bekleme süreleri dağılımı (histogram) ve ortalama/medyan istatistikleri otomatik olarak hesaplanıp raporlanır.
-* **Çift Modlu Kullanım:** İster görsel arayüzle (Dashboard), ister komut satırı (CLI) üzerinden çalıştırılabilir.
+* **İnteraktif Web Paneli:** Kod yazmaya gerek kalmadan tüm parametreleri arayüz üzerinden değiştirebilme imkanı sağlar.
 
 ---
 
@@ -21,20 +22,14 @@ Sistem mimarisi, simülasyon mantığı ile görsel arayüzü birbirinden ayıra
 
 | Dosya Adı | Açıklama |
 | :--- | :--- |
-| `benzetim.py` | Simülasyonun çekirdek motorudur. Nesne yönelimli olarak `SimPy` sınıflarını barındırır. Komut satırından bağımsız olarak çalıştırılabilir. |
-| `dashboard.py` | `Streamlit` tabanlı kullanıcı arayüzüdür. Parametre girişlerini alır, arka planda simülasyonu tetikler ve grafikleri ekrana çizer. |
+| `benzetim.py` | Simülasyonun çekirdek motorudur. Temel `SimPy` mantığını barındırır. Komut satırından bağımsız olarak (tek şube modunda) çalıştırılabilir. |
+| `dashboard.py` | `Streamlit` tabanlı ana kullanıcı arayüzüdür. Çok şubeli mantığı, VIP kuyruklarını ve canlı grafikleri yöneten gelişmiş versiyondur. |
 
 ---
 
 ## ⚙️ Kurulum ve Gereksinimler
 
 Projeyi kendi bilgisayarınızda çalıştırmak için **Python 3.7+** yüklü olmalıdır. Gerekli kütüphaneleri kurmak için terminalinizde aşağıdaki adımları izleyin.
-
-**Gerekli Kütüphaneler:**
-* `simpy`
-* `streamlit`
-* `pandas`
-* `plotly`
 
 **Kurulum Komutu:**
 ```bash
@@ -45,23 +40,20 @@ pip install simpy streamlit pandas plotly
 
 ## 🚀 Kullanım
 
-Projeyi ihtiyacınıza göre iki farklı şekilde çalıştırabilirsiniz:
-
-### 1. Web Paneli (Dashboard) Olarak Çalıştırma
-Görsel arayüzü, canlı grafikleri ve parametre kaydırıcılarını (slider) kullanmak için terminalde şu komutu çalıştırın:
+### 1. Web Paneli (Dashboard) Olarak Çalıştırma (Önerilen)
+Tüm yeni özellikleri, şube karşılaştırmalarını ve görsel arayüzü kullanmak için terminalde şu komutu çalıştırın:
 
 ```bash
 streamlit run dashboard.py
 ```
-Bu komut, varsayılan tarayıcınızda (genellikle `http://localhost:8501`) interaktif simülasyon panelini otomatik olarak açacaktır.
+Bu komut, tarayıcınızda (genellikle `http://localhost:8501`) interaktif simülasyon panelini açacaktır.
 
 ### 2. Komut Satırı (CLI) Üzerinden Çalıştırma
-Sadece ham verileri, istatistiksel çıktıları ve logları terminal üzerinden hızlıca görmek isterseniz çekirdek dosyayı çalıştırabilirsiniz:
+Sadece ham verileri ve temel tek şube analizini komut satırından görmek isterseniz:
 
 ```bash
 python benzetim.py
 ```
-*Gelişmiş CLI Kullanımı:* Kendi JSON konfigürasyon dosyanızı vererek parametreleri dışarıdan da besleyebilirsiniz: `python benzetim.py --config ayarlar.json`
 
 ---
 
@@ -69,9 +61,9 @@ python benzetim.py
 
 Web panelini başlattığınızda sizi üç ana sekme karşılayacaktır:
 
-1. **Canlı İzleme:** Simülasyon akarken anlık kuyruk uzunluğu alan grafiğini, bekleme sürelerini ve saniye saniye dökülen log metinlerini gösterir.
-2. **Detaylı Grafikler:** Simülasyon tamamlandıktan sonra, tüm müşterilerin bekleme süresi dağılımlarını bir Histogram üzerinde incelemenizi sağlar.
-3. **Rapor:** Toplam hizmet alan müşteri, maksimum/medyan bekleme süreleri ve standart sapmaları içeren nihai veri tablosunu (DataFrame) sunar.
+1. **📊 Şubeler Canlı Akış:** Seçilen tüm şubelerin kendilerine ait alt sekmelerinde canlı kuyruk grafiklerini, bekleme sürelerini ve renk kodlu (VIP/Normal) canlı log akışını gösterir.
+2. **📈 Detaylı Analizler (Karşılaştırmalar):** Şubelerin bekleme sürelerini (Kutu ve Histogram grafikleriyle) karşılaştırır. Ayrıca ağ genelinde en çok satılan kahve türlerini gösteren pasta ve sütun grafikleri barındırır.
+3. **📋 Rapor:** Toplam hizmet alan müşteri, VIP sipariş oranı ve şube bazlı detaylı performans tablolarını (DataFrame) sunar.
 
 ---
 
