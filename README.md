@@ -1,18 +1,23 @@
----
 
-# ☕ Gelişmiş Çok Şubeli Kahve Dükkanı Simülatörü
+# ☕  Çok Şubeli Kahve Dükkanı Simülatörü
 
 Bu proje, bir kahve zincirindeki şubelerin performansını, müşteri akışını, barista yoğunluğunu ve bekleme sürelerini analiz etmek için geliştirilmiş olay tabanlı (discrete-event) bir simülasyon aracıdır. Arka planda `SimPy` kullanılarak işletilen matematiksel model, `Streamlit` ve `Plotly` ile geliştirilen modern bir web paneli aracılığıyla görselleştirilmektedir.
 
 ## ✨ Temel ve Yeni Özellikler
 
-* **Çoklu Şube Desteği (YENİ):** Aynı anda birden fazla şubeyi (Kadıköy, Beşiktaş vb.) simüle edebilir ve sonuçları birbiriyle karşılaştırabilirsiniz.
-* **Dinamik Şube Ekleme (YENİ):** Arayüz üzerinden dilediğiniz isimde yeni bir şube yaratıp anında simülasyona dahil edebilirsiniz.
-* **Şubeye Özel Ayarlar (YENİ):** Her şube için bağımsız barista sayısı ve müşteri geliş aralığı tanımlayabilirsiniz (Örn: Kadıköy'de 4 barista varken Beşiktaş'ta 2 barista olması).
-* **Farklı Kahve Türleri (YENİ):** Müşteriler; Filtre Kahve (~1 dk), Latte (~3 dk) veya Frappuccino (~5 dk) sipariş edebilir. Her siparişin hazırlık süresi türüne göre dinamik olarak hesaplanır.
-* **VIP / Online Sipariş Önceliği (YENİ):** Öncelikli kuyruk mantığı (`PriorityResource`) sayesinde, VIP veya online sipariş veren müşteriler (🚀) sırayı atlayarak beklemeden hizmet alırlar.
-* **Canlı Veri Akışı:** Simülasyon sonuçları, animasyonlu bir akış ile saniye saniye ekrana yansıtılarak "canlı" bir izleme deneyimi sunar.
-* **İnteraktif Web Paneli:** Kod yazmaya gerek kalmadan tüm parametreleri arayüz üzerinden değiştirebilme imkanı sağlar.
+ **Çoklu Şube Desteği (YENİ):** Aynı anda birden fazla şubeyi (Kadıköy, Beşiktaş vb.) simüle edebilir ve sonuçları birbiriyle karşılaştırabilirsiniz.
+ 
+ **Dinamik Şube Ekleme (YENİ):** Arayüz üzerinden dilediğiniz isimde yeni bir şube yaratıp anında simülasyona dahil edebilirsiniz.
+ 
+ **Şubeye Özel Ayarlar (YENİ):** Her şube için bağımsız barista sayısı ve müşteri geliş aralığı tanımlayabilirsiniz (Örn: Kadıköy'de 4 barista varken Beşiktaş'ta 2 barista olması).
+ 
+ **Farklı Kahve Türleri (YENİ):** Müşteriler; Filtre Kahve (~1 dk), Latte (~3 dk) veya Frappuccino (~5 dk) sipariş edebilir. Her siparişin hazırlık süresi türüne göre dinamik olarak hesaplanır.
+ 
+ **VIP / Online Sipariş Önceliği (YENİ):** Öncelikli kuyruk mantığı (`PriorityResource`) sayesinde, VIP veya online sipariş veren müşteriler (🚀) sırayı atlayarak beklemeden hizmet alırlar.
+ 
+ **Canlı Veri Akışı:** Simülasyon sonuçları, animasyonlu bir akış ile saniye saniye ekrana yansıtılarak "canlı" bir izleme deneyimi sunar.
+ 
+ **İnteraktif Web Paneli:** Kod yazmaya gerek kalmadan tüm parametreleri arayüz üzerinden değiştirebilme imkanı sağlar.
 
 ---
 
