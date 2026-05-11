@@ -1,6 +1,5 @@
----
 
-# ☕ Gelişmiş Çok Şubeli Kahve Dükkanı Simülatörü
+# ☕  Çok Şubeli Kahve Dükkanı Simülatörü
 
 Bu proje, bir kahve zincirindeki şubelerin performansını, müşteri akışını, barista yoğunluğunu ve bekleme sürelerini analiz etmek için geliştirilmiş olay tabanlı (discrete-event) bir simülasyon aracıdır. Arka planda `SimPy` kullanılarak işletilen matematiksel model, `Streamlit` ve `Plotly` ile geliştirilen modern bir web paneli aracılığıyla görselleştirilmektedir.
 
